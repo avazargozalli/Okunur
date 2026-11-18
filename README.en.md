@@ -26,8 +26,6 @@ console.log(counts);
 console.log(scores?.atesman);
 ```
 
-This example will be verified in 14.8b.
-
 From the command line:
 
 ```bash

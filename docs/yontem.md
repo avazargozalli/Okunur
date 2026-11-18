@@ -449,7 +449,7 @@ Bezirci-Yılmaz = √(7,0 × (1,4×0,84 + 1,8×1,5 + 0,6×3,5 + 0,6×26,25))
                = √(7,0 × 21,726) = 12,3322…                          → 12,3  Lisans
 ```
 
-Bu değerler, şartnamedeki T3 örneğinin beklenen değerleridir; CLI çıktısı 14.8b'de doğrulanacak.
+Bu değerler, şartnamedeki T3 örneğinin beklenen değerleridir; CLI çıktısıyla birebir eşleşir.
 
 ## 9. Tanılama
 

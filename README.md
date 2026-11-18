@@ -16,7 +16,7 @@ Türkçe metinlerin okunabilirliğini ölçen açık kaynak araç: **Ateşman (1
 - **Sayımlar:** Cümle, kelime, hece, hece dağılımı, kelime başına hece ve cümle başına kelime ortalamaları.
 - **Tanılama:** Uzun cümleler, uzun kelimeler ve ağır/bürokratik sözcükler için sade karşılık önerileri.
 
-> **Ekran görüntüsü:** _(yer tutucu: `docs/ekran-goruntusu.png` — 14.8b'de eklenecek)_
+> **Ekran görüntüsü:** _(yer tutucu: `docs/ekran-goruntusu.png`)_
 
 ## Hemen dene
 
@@ -27,8 +27,6 @@ Komut satırında:
 ```bash
 npx okunur dosya.txt
 ```
-
-> Bu örnek 14.8b'de doğrulanacak.
 
 ## Kurulum ve kullanım
 
@@ -46,14 +44,21 @@ console.log(counts);
 console.log(scores?.atesman);
 ```
 
-Kısaltılmış örnek çıktı:
+Örnek çıktı:
 
 ```text
-{ sentences: 2, words: 5, syllables: 10, paragraphs: 1, ... }
+{
+  characters: 27,
+  letters: 21,
+  words: 5,
+  sentences: 2,
+  syllables: 10,
+  paragraphs: 1
+}
 { score: 111.94999999999999, level: 'cok-kolay', label: 'Çok kolay' }
 ```
 
-> `score` ham (yuvarlanmamış) değerdir; insan okur raporda bir ondalık basamağa yuvarlanır. Bu örnek 14.8b'de doğrulanacak.
+`score` ham (yuvarlanmamış) değerdir; insan okur raporda bir ondalık basamağa yuvarlanır.
 
 ### Komut satırı
 
@@ -89,8 +94,6 @@ npx okunur --no-suggestions metin.txt
 cat metin.txt | npx okunur --quiet -
 ```
 
-> Bu örnekler 14.8b'de doğrulanacak.
-
 ### CI'da kullanım
 
 `--min-atesman` ile eşik altındaki belgelerde hata koduyla çıkabilirsiniz:
@@ -101,8 +104,6 @@ cat metin.txt | npx okunur --quiet -
 ```
 
 Puan eşiğin altındaysa çıkış kodu `1` olur ve iş akışı durur; kullanım ya da dosya okuma hatasında çıkış kodu `2` olur.
-
-> Bu örnek 14.8b'de doğrulanacak.
 
 ## Puanlar nasıl okunur?
 
