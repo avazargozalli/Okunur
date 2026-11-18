@@ -174,6 +174,16 @@ describe("analyze — kenar durumlar", () => {
     expect(analysis.issues.map((issue) => issue.type)).toEqual(["long-sentence"]);
   });
 
+  it("XIX. yüzyıl: Romen sıra sayısı kelime hecesi değişmez (5)", () => {
+    const analysis = analyze("XIX. yüzyıl");
+    const words = analysis.sentences[0]?.words ?? [];
+    expect(words.map((word) => [word.text, word.syllables, word.kind])).toEqual([
+      ["XIX", 5, "number"],
+      ["yüzyıl", 2, "word"],
+    ]);
+    expect(analysis.counts.syllables).toBe(7);
+  });
+
   it("karakter ve harf sayımları kod noktasına göredir", () => {
     const analysis = analyze("İki kelime.");
     expect(analysis.counts.characters).toBe(11);

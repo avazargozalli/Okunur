@@ -7,8 +7,11 @@
 
 import { ACRONYM_SYLLABLES, SHORT_WORDS } from "./data/acronyms.js";
 import { UNITS } from "./data/units.js";
-import { numberWords, ordinalExtra, wordsSyllables } from "./numbers.js";
+import { cardinal, numberWords, ordinalExtra, romanToNumber, wordsSyllables } from "./numbers.js";
 import { countVowels, isUpperChar, lowerTr } from "./turkish.js";
+
+/** Romen rakamı olarak okunabilecek parça (7.7 adım 3, 7.5 S11). */
+const ROMAN_RE = /^[IVX]{2,}$/;
 
 /** Bir parçanın hece sonucundaki tür (Bölüm 7.7 adım 8 ve birim kuralı). */
 export type SyllableKind = "word" | "number" | "mixed" | "unit";
@@ -55,6 +58,14 @@ export function pieceSyllables(piece: string, context: SyllableContext = {}): Sy
   const unitExpansion = UNITS.get(cleaned);
   if (prevIsNumber && unitExpansion !== undefined) {
     return { syllables: extra + countVowels(unitExpansion), kind: "unit" };
+  }
+  // 3. Romen sıra sayısı: değer tam sayıya çevrilir; okunuş + sıra eki.
+  if (ordinal && ROMAN_RE.test(cleaned)) {
+    const romanWords = cardinal(romanToNumber(cleaned));
+    return {
+      syllables: extra + wordsSyllables(romanWords) + ordinalExtra(romanWords),
+      kind: "number",
+    };
   }
   const apostrophe = cleaned.indexOf("'");
   const head = apostrophe >= 0 ? cleaned.slice(0, apostrophe) : cleaned;
