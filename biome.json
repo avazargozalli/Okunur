@@ -17,9 +17,6 @@
     "useIgnoreFile": true
   },
   "files": {
-    "includes": [
-      "**",
-      "!test/vectors"
-    ]
+    "includes": ["**", "!test/vectors"]
   }
 }
