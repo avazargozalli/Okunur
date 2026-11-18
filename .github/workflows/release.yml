@@ -1,0 +1,58 @@
+name: Sürüm
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  release:
+    name: npm ve GitHub sürümü
+    runs-on: ubuntu-latest
+    steps:
+      - name: Depoyu al
+        uses: actions/checkout@v7
+
+      - name: Node.js kur
+        uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+          cache: npm
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Bağımlılıkları kur
+        run: npm ci
+
+      - name: Tam denetim
+        run: npm run check
+
+      - name: Sürüm notlarını CHANGELOG'dan çıkar
+        shell: bash
+        run: |
+          set -euo pipefail
+          version="${GITHUB_REF_NAME#v}"
+          awk -v ver="$version" '
+            index($0, "## [" ver "]") == 1 { found = 1; next }
+            found && (/^## \[/ || /^\[[^]]+\]:/) { exit }
+            found { print }
+          ' CHANGELOG.md > release-notes.md
+          test -s release-notes.md
+
+      - name: npm'e yayımla
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: GitHub sürümü oluştur
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          version="${GITHUB_REF_NAME#v}"
+          gh release create "$GITHUB_REF_NAME" \
+            --title "okunur $version" \
+            --notes-file release-notes.md \
+            --verify-tag

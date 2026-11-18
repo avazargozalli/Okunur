@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "Bu yazılımı kullanırsanız lütfen aşağıdaki künyeyi atıfla belirtin."
+title: "okunur: Türkçe metinler için okunabilirlik ölçer"
+abstract: >-
+  Türkçe metinlerin okunabilirliğini Ateşman (1997), Çetinkaya-Uzun (2010) ve
+  Bezirci-Yılmaz (2010) formülleriyle ölçen; cümle, kelime ve hece sayımları
+  üreten; uzun cümleleri, uzun kelimeleri ve ağır sözcükleri işaretleyen açık
+  kaynak bir araç. Kütüphane, komut satırı aracı ve tarayıcıda çalışan statik
+  web uygulaması olarak sunulur.
+type: software
+authors:
+  - name: "{SAHIP_ADI}"
+version: "0.1.0"
+date-released: "2026-11-19"
+license: MIT
+repository-code: "https://github.com/{GITHUB_KULLANICI}/okunur"
+url: "https://{GITHUB_KULLANICI}.github.io/okunur/"
+keywords:
+  - türkçe
+  - turkish
+  - okunabilirlik
+  - readability
+  - ateşman
+  - çetinkaya-uzun
+  - bezirci-yılmaz
+  - hece
+  - sade dil

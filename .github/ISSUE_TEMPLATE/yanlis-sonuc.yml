@@ -1,0 +1,84 @@
+name: Yanlış sonuç
+description: Bir metnin cümle, kelime, hece veya puan sonucu beklenenden farklı çıktı.
+title: "[Yanlış sonuç]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Okunabilirlik sonucunun yanlış olduğunu düşünüyorsanız lütfen metni, beklediğiniz değerleri ve aracın verdiği sonucu paylaşın.
+        Sorunu en küçük metinle göstermeye çalışın; kişisel veri eklemeyin. Bu bir hata bildirimi değil, **sonuç doğruluğu** bildirimidir.
+
+  - type: textarea
+    id: metin
+    attributes:
+      label: Metin
+      description: Sorunu gösteren en kısa metin. Gerekirse yalnızca ilgili cümleyi yazın.
+      placeholder: "Örnek: Dr. Ayşe geldi. Sonra gitti."
+      render: text
+    validations:
+      required: true
+
+  - type: textarea
+    id: beklenen
+    attributes:
+      label: Beklenen cümle / kelime / hece
+      description: Hangi sayımların ne olması gerektiğini ve varsa beklenen puanı yazın.
+      placeholder: |
+        Cümle: 2
+        Kelime: 5
+        Hece: 10
+        Ateşman: 111,95
+    validations:
+      required: true
+
+  - type: textarea
+    id: bulunan
+    attributes:
+      label: Aracın verdiği
+      description: Puan, düzey, bulgu metni veya JSON çıktısının ilgili kısmı.
+      placeholder: |
+        Cümle: ...
+        Kelime: ...
+        Hece: ...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: yuzey
+    attributes:
+      label: Hangi yüzeyde gördünüz?
+      options:
+        - Web uygulaması
+        - Komut satırı (CLI)
+        - Kütüphane
+    validations:
+      required: true
+
+  - type: input
+    id: surum
+    attributes:
+      label: Sürüm
+      description: Paket sürümü ve algoritma sürümü (arayüzün alt bölümünde yazar).
+      placeholder: "0.1.0 (algoritma sürümü 1)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: ek-bilgi
+    attributes:
+      label: Ek bilgi
+      description: Kuralın hangi maddesiyle çeliştiğini düşünüyorsunuz? Kaynak veya örnek ekleyin.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: kontrol
+    attributes:
+      label: Kontrol listesi
+      options:
+        - label: Metin kişisel veya hassas veri içermiyor.
+          required: true
+        - label: Sorunu en küçük örnekle yeniden üretmeye çalıştım.
+          required: true
+        - label: Bu bir güvenlik açığı değil.
+          required: true

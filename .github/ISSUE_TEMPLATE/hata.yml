@@ -1,0 +1,79 @@
+name: Hata bildirimi
+description: Beklenmeyen bir davranış, çökme veya arayüz hatası bildirin.
+title: "[Hata]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Hata bildirimi için teşekkürler. Lütfen sorunu en küçük örnekle ve kişisel veri paylaşmadan anlatın.
+        Okunabilirlik sonucunun yanlış olduğunu düşünüyorsanız **Yanlış sonuç** şablonunu kullanın.
+        Güvenlik açıkları için herkese açık issue açmayın; [SECURITY.md](https://github.com/{GITHUB_KULLANICI}/okunur/blob/main/SECURITY.md) izleyin.
+
+  - type: textarea
+    id: ne-oldu
+    attributes:
+      label: Ne oldu?
+      description: Beklenen davranış ile gerçekleşen davranışı kısaca anlatın.
+      placeholder: "Örneğin: `--json` çıktısı geçerli JSON değil."
+    validations:
+      required: true
+
+  - type: textarea
+    id: yeniden-uretme
+    attributes:
+      label: Nasıl yinelenir?
+      description: Adım adım komutlar veya tıklamalar. Mümkünse en küçük metni ekleyin.
+      placeholder: |
+        1. `npm install okunur`
+        2. `npx okunur ornek.txt`
+        3. ...
+      render: shell
+    validations:
+      required: true
+
+  - type: dropdown
+    id: yuzey
+    attributes:
+      label: Hangi yüzey?
+      options:
+        - Web uygulaması
+        - Komut satırı (CLI)
+        - Kütüphane
+    validations:
+      required: true
+
+  - type: input
+    id: surum
+    attributes:
+      label: Sürüm
+      description: Paket sürümü ve varsa algoritma sürümü.
+      placeholder: "0.1.0 (algoritma sürümü 1)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: ortam
+    attributes:
+      label: Ortam
+      description: İşletim sistemi, Node.js sürümü, tarayıcı ve sürümü.
+      placeholder: "macOS 15, Node.js 22.11.0, Chrome 140"
+    validations:
+      required: true
+
+  - type: textarea
+    id: ek-bilgi
+    attributes:
+      label: Ek bilgi
+      description: Hata iletisi, ekran görüntüsü bağlantısı veya denediğiniz çözümler.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: kontrol
+    attributes:
+      label: Kontrol listesi
+      options:
+        - label: Bildirimde kişisel veya hesap bilgisi yok.
+          required: true
+        - label: Sorunu en küçük örnekle göstermeye çalıştım.
+          required: true

@@ -1,0 +1,58 @@
+name: Öneri
+description: Kısaltma, sade karşılık, birim veya yeni özellik önerin.
+title: "[Öneri]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Öneriniz için teşekkürler. Öneriler "hata" olarak değil, iyileştirme olarak değerlendirilir.
+        Algoritma çıktısını değiştiren öneriler `ALGORITHM_VERSION` tartışması gerektirir; ayrıntılar [CONTRIBUTING.md](https://github.com/{GITHUB_KULLANICI}/okunur/blob/main/CONTRIBUTING.md) içinde.
+
+  - type: dropdown
+    id: oneri-turu
+    attributes:
+      label: Öneri türü
+      options:
+        - Kısaltma (yeni kısaltma veya okunuş istisnası)
+        - Sade karşılık (ağır sözcük için öneri)
+        - Birim (yeni birim veya açılım)
+        - Özellik (yeni davranış, çıktı veya arayüz)
+    validations:
+      required: true
+
+  - type: textarea
+    id: aciklama
+    attributes:
+      label: Açıklama
+      description: Ne eklenmeli veya değişmeli? Hangi sorunu çözer?
+      placeholder: "Örneğin: `müteakip` için öneri listesine ... eklenmeli."
+    validations:
+      required: true
+
+  - type: input
+    id: kaynak
+    attributes:
+      label: Kaynak
+      description: Sözlük, TDK, kurumsal kılavuz, makale veya örnek metin bağlantısı.
+      placeholder: "https://..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: ornek
+    attributes:
+      label: Örnek
+      description: Önerinin uygulandığı bir cümle ve beklenen sonuç.
+      placeholder: "Örnek cümle ve beklenen öneri..."
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: kontrol
+    attributes:
+      label: Kontrol listesi
+      options:
+        - label: Benzer bir öneri için açılmış issue'ları kontrol ettim.
+          required: true
+        - label: Öneri, mevcut test vektörleriyle çelişmiyor.
+          required: true
