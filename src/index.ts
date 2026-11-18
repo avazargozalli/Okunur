@@ -18,6 +18,7 @@ export {
   cetinkayaUzunLevel,
 } from "./formulas.js";
 export { numberToWords } from "./numbers.js";
+export { formatReport } from "./report.js";
 export { countSyllables } from "./syllables.js";
 export type {
   Analysis,
