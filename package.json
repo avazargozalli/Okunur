@@ -1,0 +1,41 @@
+{
+  "name": "okunur",
+  "version": "0.1.0",
+  "description": "Türkçe metinler için okunabilirlik ölçer: Ateşman, Çetinkaya-Uzun, Bezirci-Yılmaz",
+  "type": "module",
+  "license": "MIT",
+  "engines": { "node": ">=22" },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": { ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" } },
+  "bin": { "okunur": "./dist/cli.js" },
+  "files": ["dist", "README.md", "README.en.md", "LICENSE", "CHANGELOG.md"],
+  "sideEffects": false,
+  "keywords": [
+    "türkçe",
+    "turkish",
+    "okunabilirlik",
+    "readability",
+    "ateşman",
+    "atesman",
+    "hece",
+    "syllable",
+    "nlp",
+    "sade-dil",
+    "plain-language"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "coverage": "vitest run --coverage",
+    "lint": "biome check .",
+    "format": "biome check --write .",
+    "typecheck": "tsc --noEmit",
+    "web:dev": "vite web",
+    "web:build": "vite build web",
+    "check": "npm run lint && npm run typecheck && npm run coverage && npm run build && npm run web:build",
+    "prepublishOnly": "npm run check"
+  },
+  "dependencies": {}
+}

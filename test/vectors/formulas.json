@@ -1,0 +1,5 @@
+[
+  {"words":5,"sentences":2,"syllables":10,"syllableDistribution":{"1":1,"2":3,"3":1,"4":0,"5":0,"6+":0},"atesman":111.95,"cetinkayaUzun":64.4215,"bezirciYilmaz":1.0247},
+  {"words":100,"sentences":10,"syllables":250,"syllableDistribution":{"1":20,"2":40,"3":20,"4":12,"5":6,"6+":2},"atesman":72.2875,"cetinkayaUzun":44.1455,"bezirciYilmaz":10.4067},
+  {"words":120,"sentences":4,"syllables":400,"syllableDistribution":{"1":10,"2":30,"3":30,"4":25,"5":15,"6+":10},"atesman":-13.3917,"cetinkayaUzun":3.0697,"bezirciYilmaz":53.2236}
+]
