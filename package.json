@@ -4,12 +4,27 @@
   "description": "Türkçe metinler için okunabilirlik ölçer: Ateşman, Çetinkaya-Uzun, Bezirci-Yılmaz",
   "type": "module",
   "license": "MIT",
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "exports": { ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" } },
-  "bin": { "okunur": "./dist/cli.js" },
-  "files": ["dist", "README.md", "README.en.md", "LICENSE", "CHANGELOG.md"],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "bin": {
+    "okunur": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "README.en.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
   "sideEffects": false,
   "keywords": [
     "türkçe",
@@ -37,5 +52,12 @@
     "check": "npm run lint && npm run typecheck && npm run coverage && npm run build && npm run web:build",
     "prepublishOnly": "npm run check"
   },
-  "dependencies": {}
+  "devDependencies": {
+    "@biomejs/biome": "^2.6.8",
+    "@types/node": "^26.6.6",
+    "@vitest/coverage-v8": "^5.1.1",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8",
+    "vitest": "^5.1.1"
+  }
 }
