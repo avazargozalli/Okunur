@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'"
+    >
+    <meta name="color-scheme" content="light dark">
+    <meta
+      name="description"
+      content="Türkçe metinler için okunabilirlik ölçer: Ateşman, Çetinkaya-Uzun ve Bezirci-Yılmaz puanları, uzun cümle ve kelime işaretleri, sade karşılık önerileri."
+    >
+    <title>okunur — Türkçe metinler için okunabilirlik ölçer</title>
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#icerik">İçeriğe geç</a>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <h1>okunur</h1>
+          <p class="tagline">Türkçe metinler için okunabilirlik ölçer</p>
+        </div>
+        <nav class="site-nav" aria-label="Bağlantılar">
+          <!-- Yer tutucu: {GITHUB_KULLANICI} sahibi tarafından doldurulacak (şartname 0.1). -->
+          <a id="github-link" class="github-link" href="https://github.com/{GITHUB_KULLANICI}/okunur">
+            GitHub
+          </a>
+        </nav>
+      </div>
+      <p class="privacy-note">Metniniz tarayıcınızdan çıkmaz.</p>
+    </header>
+
+    <noscript>
+      <p class="notice">
+        Bu uygulama metni tarayıcınızda analiz etmek için JavaScript kullanır. Lütfen
+        JavaScript'i etkinleştirin.
+      </p>
+    </noscript>
+
+    <main id="icerik" class="layout" tabindex="-1">
+      <section class="panel input-panel" aria-labelledby="input-heading">
+        <h2 id="input-heading">Metninizi girin</h2>
+
+        <div class="field">
+          <label for="text-input">Metninizi buraya yapıştırın</label>
+          <textarea id="text-input" name="text" rows="14" aria-describedby="input-hint"></textarea>
+          <p id="input-hint" class="hint">
+            Metin yalnızca tarayıcınızda analiz edilir; sunucuya gönderilmez ve sayfayı
+            kapattığınızda kaybolur.
+          </p>
+        </div>
+
+        <div class="actions">
+          <button type="button" id="load-sample" class="button">Örnek metin yükle</button>
+          <button type="button" id="clear-text" class="button button--quiet">Temizle</button>
+        </div>
+
+        <div class="checkbox-row">
+          <input type="checkbox" id="join-lines" name="joinLines">
+          <label for="join-lines">Satır sonlarını birleştir (PDF'ten kopyalanan metinler için)</label>
+        </div>
+      </section>
+
+      <section id="results" class="results-panel" aria-labelledby="results-heading">
+        <h2 id="results-heading">Sonuçlar</h2>
+
+        <p class="summary" id="result-summary" aria-live="polite" aria-atomic="true"></p>
+
+        <p class="empty-hint" id="empty-state">
+          Sonuçları görmek için metin yapıştırın ya da örnek metni yükleyin.
+        </p>
+
+        <div id="results-content" hidden>
+          <div class="score-cards">
+            <article class="score-card score-card--atesman" aria-labelledby="atesman-heading">
+              <h3 id="atesman-heading">Ateşman <span class="year">(1997)</span></h3>
+              <p class="score">
+                <span id="atesman-score">—</span><span class="score-unit">puan</span>
+              </p>
+              <p class="level" id="atesman-level"></p>
+              <p class="card-desc">Hece ve kelime uzunluğuna dayanan, Türkçeye uyarlanmış formül.</p>
+              <details class="explain">
+                <summary>nasıl okunur?</summary>
+                <p>
+                  Yüksek puan daha kolay metin demektir. Düzey, yuvarlanmamış puandan
+                  belirlenir; puan 100'ün üzerine çıkabilir veya 0'ın altına inebilir.
+                </p>
+                <table>
+                  <caption class="visually-hidden">
+                    Ateşman puan aralıkları ve düzeyleri
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Puan aralığı</th>
+                      <th scope="col">Düzey</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">90,00 ve üzeri</th>
+                      <td>Çok kolay</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">70,00 – 89,99</th>
+                      <td>Kolay</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">50,00 – 69,99</th>
+                      <td>Orta güçlükte</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">30,00 – 49,99</th>
+                      <td>Zor</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">30,00'ın altı</th>
+                      <td>Çok zor</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </details>
+            </article>
+
+            <article class="score-card" aria-labelledby="cetinkaya-uzun-heading">
+              <h3 id="cetinkaya-uzun-heading">
+                Çetinkaya-Uzun <span class="year">(2010)</span>
+              </h3>
+              <p class="score">
+                <span id="cetinkaya-uzun-score">—</span><span class="score-unit">puan</span>
+              </p>
+              <p class="level" id="cetinkaya-uzun-level"></p>
+              <p class="card-desc">Hece ve kelime uzunluğundan sınıf düzeyi tahmini.</p>
+              <details class="explain">
+                <summary>nasıl okunur?</summary>
+                <p>Yüksek puan daha kolay metin demektir.</p>
+                <table>
+                  <caption class="visually-hidden">
+                    Çetinkaya-Uzun puan aralıkları ve düzeyleri
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Puan aralığı</th>
+                      <th scope="col">Düzey</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">51,00 ve üzeri</th>
+                      <td>Bağımsız okuma düzeyi (5–7. sınıf)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">35,00 – 50,99</th>
+                      <td>Eğitsel okuma düzeyi (8–9. sınıf)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">35,00'in altı</th>
+                      <td>Engelleyici okuma düzeyi (10–12. sınıf)</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </details>
+            </article>
+
+            <article class="score-card" aria-labelledby="bezirci-yilmaz-heading">
+              <h3 id="bezirci-yilmaz-heading">
+                Bezirci-Yılmaz <span class="year">(2010)</span>
+              </h3>
+              <p class="score">
+                <span id="bezirci-yilmaz-score">—</span><span class="score-unit">puan</span>
+              </p>
+              <p class="level" id="bezirci-yilmaz-level"></p>
+              <p class="card-desc">Hece dağılımını da katan Yeni Okunabilirlik Değeri (YOD).</p>
+              <details class="explain">
+                <summary>nasıl okunur?</summary>
+                <p>Bu ölçekte yüksek değer daha zor metin demektir.</p>
+                <table>
+                  <caption class="visually-hidden">
+                    Bezirci-Yılmaz YOD aralıkları ve düzeyleri
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">YOD</th>
+                      <th scope="col">Düzey</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">8,00 ve altı</th>
+                      <td>İlköğretim</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">8,01 – 12,00</th>
+                      <td>Lise</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">12,01 – 16,00</th>
+                      <td>Lisans</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">16,00'ın üzeri</th>
+                      <td>Akademik</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </details>
+            </article>
+          </div>
+
+          <section class="block" aria-labelledby="counts-heading">
+            <h3 id="counts-heading">Sayımlar</h3>
+            <dl class="stats">
+              <div>
+                <dt>Cümle</dt>
+                <dd id="count-sentences">—</dd>
+              </div>
+              <div>
+                <dt>Kelime</dt>
+                <dd id="count-words">—</dd>
+              </div>
+              <div>
+                <dt>Hece</dt>
+                <dd id="count-syllables">—</dd>
+              </div>
+              <div>
+                <dt>Kelime başına hece</dt>
+                <dd id="count-syllables-per-word">—</dd>
+              </div>
+              <div>
+                <dt>Cümle başına kelime</dt>
+                <dd id="count-words-per-sentence">—</dd>
+              </div>
+              <div>
+                <dt>Paragraf</dt>
+                <dd id="count-paragraphs">—</dd>
+              </div>
+            </dl>
+          </section>
+
+          <section class="block" aria-labelledby="distribution-heading">
+            <h3 id="distribution-heading">Hece dağılımı</h3>
+            <ul class="distribution">
+              <li class="dist-row">
+                <span class="dist-label">1 hece</span>
+                <span class="dist-track" aria-hidden="true">
+                  <span class="dist-fill" id="dist-1-bar"></span>
+                </span>
+                <span class="dist-count">
+                  <span id="dist-1-count">—</span><span class="visually-hidden"> kelime</span>
+                </span>
+              </li>
+              <li class="dist-row">
+                <span class="dist-label">2 hece</span>
+                <span class="dist-track" aria-hidden="true">
+                  <span class="dist-fill" id="dist-2-bar"></span>
+                </span>
+                <span class="dist-count">
+                  <span id="dist-2-count">—</span><span class="visually-hidden"> kelime</span>
+                </span>
+              </li>
+              <li class="dist-row">
+                <span class="dist-label">3 hece</span>
+                <span class="dist-track" aria-hidden="true">
+                  <span class="dist-fill" id="dist-3-bar"></span>
+                </span>
+                <span class="dist-count">
+                  <span id="dist-3-count">—</span><span class="visually-hidden"> kelime</span>
+                </span>
+              </li>
+              <li class="dist-row">
+                <span class="dist-label">4 hece</span>
+                <span class="dist-track" aria-hidden="true">
+                  <span class="dist-fill" id="dist-4-bar"></span>
+                </span>
+                <span class="dist-count">
+                  <span id="dist-4-count">—</span><span class="visually-hidden"> kelime</span>
+                </span>
+              </li>
+              <li class="dist-row">
+                <span class="dist-label">5 hece</span>
+                <span class="dist-track" aria-hidden="true">
+                  <span class="dist-fill" id="dist-5-bar"></span>
+                </span>
+                <span class="dist-count">
+                  <span id="dist-5-count">—</span><span class="visually-hidden"> kelime</span>
+                </span>
+              </li>
+              <li class="dist-row">
+                <span class="dist-label">6+ hece</span>
+                <span class="dist-track" aria-hidden="true">
+                  <span class="dist-fill" id="dist-6-bar"></span>
+                </span>
+                <span class="dist-count">
+                  <span id="dist-6-count">—</span><span class="visually-hidden"> kelime</span>
+                </span>
+              </li>
+            </ul>
+          </section>
+
+          <section
+            id="warnings-section"
+            class="block"
+            aria-labelledby="warnings-heading"
+            hidden
+          >
+            <h3 id="warnings-heading">Uyarılar</h3>
+            <ul id="warnings-list" class="warnings"></ul>
+          </section>
+
+          <section class="block" aria-labelledby="marked-heading">
+            <h3 id="marked-heading">İşaretli metin</h3>
+            <fieldset class="filters">
+              <legend>Tür süzgeçleri</legend>
+              <div class="filter-options">
+                <label>
+                  <input type="checkbox" id="filter-long-sentences" checked>
+                  Uzun cümleler
+                </label>
+                <label>
+                  <input type="checkbox" id="filter-long-words" checked>
+                  Uzun kelimeler
+                </label>
+                <label>
+                  <input type="checkbox" id="filter-plain-alternatives" checked>
+                  Sade karşılık önerileri
+                </label>
+              </div>
+            </fieldset>
+            <p class="mark-legend">
+              Uzun cümle: açık arka plan ve sol kenar çizgisi. Çok uzun cümle: daha koyu
+              arka plan ve kalın sol çizgi. Uzun kelime: noktalı alt çizgi. Sade karşılık:
+              dalgalı alt çizgi.
+            </p>
+            <div id="marked-text" class="marked-text" lang="tr"></div>
+          </section>
+
+          <section id="issues-section" class="block" aria-labelledby="issues-heading" hidden>
+            <h3 id="issues-heading">
+              Bulgular <span class="count" id="issue-count"></span>
+            </h3>
+            <p class="block-note">
+              Bir bulguya tıklayınca işaretli metindeki ilgili yer vurgulanır.
+            </p>
+            <ol id="issue-list" class="issue-list"></ol>
+          </section>
+
+          <div class="export">
+            <button type="button" id="copy-report" class="button">Raporu kopyala</button>
+            <button type="button" id="download-json" class="button button--quiet">
+              JSON indir
+            </button>
+            <p id="copy-status" class="status" role="status"></p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <h2>Yöntem ve sınırlar</h2>
+        <p class="footer-intro">
+          okunur, Türkçe metinlerde hece ve kelime uzunluklarına bakan üç formülü birlikte
+          gösterir. Ateşman (1997) ve Çetinkaya-Uzun (2010) puanlarında yüksek değer kolay
+          metni, Bezirci-Yılmaz (2010) Yeni Okunabilirlik Değeri'nde (YOD) ise yüksek değer
+          zor metni gösterir. Uzun cümleler, uzun kelimeler ve sade karşılığı olan ağır
+          sözcükler işaretlenir; bunlar hata değil, öneridir.
+        </p>
+        <p>
+          <!-- Yer tutucu: {GITHUB_KULLANICI} sahibi tarafından doldurulacak (şartname 0.1). -->
+          <a id="method-link" href="https://github.com/{GITHUB_KULLANICI}/okunur/blob/main/docs/yontem.md">
+            Yöntemin tam açıklaması (docs/yontem.md)
+          </a>
+        </p>
+
+        <div class="footer-grid">
+          <section aria-labelledby="formulas-heading">
+            <h3 id="formulas-heading">Formüller</h3>
+            <ul>
+              <li>
+                <strong>Ateşman (1997):</strong> hece/kelime ve kelime/cümle ortalamalarına
+                dayanır; yüksek puan kolay metni gösterir.
+              </li>
+              <li>
+                <strong>Çetinkaya-Uzun (2010):</strong> aynı ortalamalarla sınıf düzeyi
+                tahmini verir; yüksek puan kolay metni gösterir.
+              </li>
+              <li>
+                <strong>Bezirci-Yılmaz (2010):</strong> hece dağılımını da hesaba katar
+                (YOD); yüksek değer zor metni gösterir.
+              </li>
+            </ul>
+          </section>
+
+          <section aria-labelledby="limits-heading">
+            <h3 id="limits-heading">Sınırlar</h3>
+            <ul>
+              <li>
+                Formüller anlamı, tutarlılığı ve okurun ön bilgisini ölçmez; puan bir
+                tahmindir.
+              </li>
+              <li>
+                En az 100 kelimelik düzyazı için tasarlanmıştır; kısa metin, şiir, liste ve
+                tablolarda yanıltıcı olabilir.
+              </li>
+              <li>
+                Yabancı kökenli sözcüklerde ünlü sayısı hece sayısını tutmayabilir (ör.
+                <span lang="en">online</span>, <span lang="en">iPhone</span>).
+              </li>
+              <li>
+                Kısaltmaların okunuşu kural tabanlıdır; tabloda olmayan kısaltmalarda sapma
+                olabilir.
+              </li>
+              <li>
+                Sade karşılık listesi küçüktür ve bağlama bakmaz; öneriler her cümlede uygun
+                olmayabilir.
+              </li>
+              <li>
+                Farklı araçlar ve elle sayım farklı sonuç verebilir; karşılaştırırken yöntemi
+                belirtin.
+              </li>
+            </ul>
+          </section>
+
+          <section aria-labelledby="references-heading">
+            <h3 id="references-heading">Kaynakça</h3>
+            <ul class="references">
+              <li>
+                Ateşman, E. (1997). Türkçede okunabilirliğin ölçülmesi.
+                <cite>Dil Dergisi</cite>, 58, 71–74.
+              </li>
+              <li>
+                Bezirci, B. ve Yılmaz, A. E. (2010). Metinlerin okunabilirliğinin ölçülmesi
+                üzerine bir yazılım kütüphanesi ve Türkçe için yeni bir okunabilirlik
+                ölçütü. <cite>Dokuz Eylül Üniversitesi Mühendislik Fakültesi Fen ve
+                Mühendislik Dergisi</cite>, 12(3), 49–62.
+              </li>
+              <li>
+                Çetinkaya, G. (2010).
+                <cite>Türkçe metinlerin okunabilirlik düzeylerinin tanımlanması ve
+                sınıflandırılması</cite> (Doktora tezi). Ankara Üniversitesi.
+              </li>
+              <li>
+                Flesch, R. (1948).
+                <span lang="en">A new readability yardstick</span>.
+                <cite lang="en">Journal of Applied Psychology</cite>, 32(3), 221–233.
+                (Ateşman formülünün uyarlandığı özgün çalışma.)
+              </li>
+            </ul>
+          </section>
+        </div>
+
+        <p class="version">
+          Sürüm <span id="app-version">0.1.0</span> ·
+          Algoritma sürümü <span id="algorithm-version">1</span>
+        </p>
+      </div>
+    </footer>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
