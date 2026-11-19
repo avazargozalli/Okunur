@@ -6,7 +6,7 @@ body:
     attributes:
       value: |
         Öneriniz için teşekkürler. Öneriler "hata" olarak değil, iyileştirme olarak değerlendirilir.
-        Algoritma çıktısını değiştiren öneriler `ALGORITHM_VERSION` tartışması gerektirir; ayrıntılar [CONTRIBUTING.md](https://github.com/{GITHUB_KULLANICI}/okunur/blob/main/CONTRIBUTING.md) içinde.
+        Algoritma çıktısını değiştiren öneriler `ALGORITHM_VERSION` tartışması gerektirir; ayrıntılar [CONTRIBUTING.md](https://github.com/avazargozalli/Okunur/blob/main/CONTRIBUTING.md) içinde.
 
   - type: dropdown
     id: oneri-turu

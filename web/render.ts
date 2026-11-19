@@ -68,8 +68,9 @@ function formatDecimal(value: number, digits: number): string {
   return value.toFixed(digits).replace(".", ",");
 }
 
-function setSummary(text: string): void {
+function setSummary(text: string, visuallyHidden = false): void {
   const summary = byId("result-summary");
+  summary.classList.toggle("visually-hidden", visuallyHidden);
   if (summary.textContent !== text) {
     summary.textContent = text;
   }
@@ -263,7 +264,7 @@ export function renderResults(analysis: Analysis): void {
     analysis.scores === null
       ? "Puan hesaplanamadı: metinde kelime yok."
       : `Ateşman ${formatDecimal(analysis.scores.atesman.score, 1)}: ${analysis.scores.atesman.label}`;
-  setSummary(summary);
+  setSummary(summary, analysis.scores !== null);
 
   setScore("atesman", analysis.scores?.atesman);
   setScore("cetinkaya-uzun", analysis.scores?.cetinkayaUzun);

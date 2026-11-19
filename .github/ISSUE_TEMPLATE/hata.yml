@@ -7,7 +7,7 @@ body:
       value: |
         Hata bildirimi için teşekkürler. Lütfen sorunu en küçük örnekle ve kişisel veri paylaşmadan anlatın.
         Okunabilirlik sonucunun yanlış olduğunu düşünüyorsanız **Yanlış sonuç** şablonunu kullanın.
-        Güvenlik açıkları için herkese açık issue açmayın; [SECURITY.md](https://github.com/{GITHUB_KULLANICI}/okunur/blob/main/SECURITY.md) izleyin.
+        Güvenlik açıkları için herkese açık issue açmayın; [SECURITY.md](https://github.com/avazargozalli/Okunur/blob/main/SECURITY.md) izleyin.
 
   - type: textarea
     id: ne-oldu

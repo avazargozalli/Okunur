@@ -4,24 +4,48 @@ on:
   push:
     tags: ["v*"]
 
-permissions:
-  contents: write
-  id-token: write
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   release:
     name: npm ve GitHub sürümü
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
     steps:
       - name: Depoyu al
         uses: actions/checkout@v7
+        with:
+          persist-credentials: false
 
       - name: Node.js kur
         uses: actions/setup-node@v7
         with:
-          node-version: "22"
-          cache: npm
+          node-version: "24"
+          package-manager-cache: false
           registry-url: "https://registry.npmjs.org"
+
+      - name: Sürüm etiketini denetle ve notları çıkar
+        shell: bash
+        run: |
+          set -euo pipefail
+          version="$(node --print 'require("./package.json").version')"
+          if [[ "$GITHUB_REF_NAME" != "v$version" ]]; then
+            echo "Etiket ($GITHUB_REF_NAME) ile paket sürümü (v$version) uyuşmuyor." >&2
+            exit 1
+          fi
+          awk -v ver="$version" '
+            index($0, "## [" ver "]") == 1 { found = 1; next }
+            found && (/^## \[/ || /^\[[^]]+\]:/) { exit }
+            found { print }
+          ' CHANGELOG.md > "$RUNNER_TEMP/release-notes.md"
+          if ! grep -q '[^[:space:]]' "$RUNNER_TEMP/release-notes.md"; then
+            echo "CHANGELOG.md içinde $version için sürüm notu bulunamadı." >&2
+            exit 1
+          fi
 
       - name: Bağımlılıkları kur
         run: npm ci
@@ -29,30 +53,46 @@ jobs:
       - name: Tam denetim
         run: npm run check
 
-      - name: Sürüm notlarını CHANGELOG'dan çıkar
+      - name: npm paketini yayımla veya var olan sürümü doğrula
         shell: bash
         run: |
           set -euo pipefail
-          version="${GITHUB_REF_NAME#v}"
-          awk -v ver="$version" '
-            index($0, "## [" ver "]") == 1 { found = 1; next }
-            found && (/^## \[/ || /^\[[^]]+\]:/) { exit }
-            found { print }
-          ' CHANGELOG.md > release-notes.md
-          test -s release-notes.md
-
-      - name: npm'e yayımla
-        run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          pack_info="$RUNNER_TEMP/npm-pack.json"
+          npm pack --json --pack-destination "$RUNNER_TEMP" > "$pack_info"
+          archive="$(node --print 'require(process.argv[1])[0].filename' "$pack_info")"
+          package_name="$(node --print 'encodeURIComponent(require("./package.json").name)')"
+          registry_info="$RUNNER_TEMP/npm-version.json"
+          status="$(curl --silent --show-error --retry 2 --max-time 15 --output "$registry_info" \
+            --write-out '%{http_code}' "https://registry.npmjs.org/$package_name/${GITHUB_REF_NAME#v}")"
+          case "$status" in
+            404)
+              npm publish "$RUNNER_TEMP/$archive"
+              ;;
+            200)
+              local_integrity="$(node --print 'require(process.argv[1])[0].integrity' "$pack_info")"
+              published_integrity="$(node --print 'require(process.argv[1]).dist.integrity' "$registry_info")"
+              if [[ "$published_integrity" != "$local_integrity" ]]; then
+                echo "npm'deki $GITHUB_REF_NAME paketi bu etiketin arşiviyle eşleşmiyor." >&2
+                exit 1
+              fi
+              echo "$GITHUB_REF_NAME npm'de aynı arşivle yayımlanmış."
+              ;;
+            *)
+              echo "npm kayıt defteri HTTP $status döndürdü." >&2
+              exit 1
+              ;;
+          esac
 
       - name: GitHub sürümü oluştur
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
         run: |
           set -euo pipefail
           version="${GITHUB_REF_NAME#v}"
-          gh release create "$GITHUB_REF_NAME" \
-            --title "okunur $version" \
-            --notes-file release-notes.md \
-            --verify-tag
+          if ! gh release view "$GITHUB_REF_NAME" --json url --jq .url 2>/dev/null; then
+            gh release create "$GITHUB_REF_NAME" \
+              --title "okunur $version" \
+              --notes-file "$RUNNER_TEMP/release-notes.md" \
+              --verify-tag
+          fi

@@ -24,14 +24,13 @@
           <h1>okunur</h1>
           <p class="tagline">Türkçe metinler için okunabilirlik ölçer</p>
         </div>
-        <nav class="site-nav" aria-label="Bağlantılar">
-          <!-- Yer tutucu: {GITHUB_KULLANICI} sahibi tarafından doldurulacak (şartname 0.1). -->
-          <a id="github-link" class="github-link" href="https://github.com/{GITHUB_KULLANICI}/okunur">
+        <p class="privacy-note">Metniniz tarayıcınızdan çıkmaz.</p>
+        <nav aria-label="Bağlantılar">
+          <a id="github-link" class="github-link" href="https://github.com/avazargozalli/Okunur">
             GitHub
           </a>
         </nav>
       </div>
-      <p class="privacy-note">Metniniz tarayıcınızdan çıkmaz.</p>
     </header>
 
     <noscript>
@@ -47,11 +46,8 @@
 
         <div class="field">
           <label for="text-input">Metninizi buraya yapıştırın</label>
-          <textarea id="text-input" name="text" rows="14" aria-describedby="input-hint"></textarea>
-          <p id="input-hint" class="hint">
-            Metin yalnızca tarayıcınızda analiz edilir; sunucuya gönderilmez ve sayfayı
-            kapattığınızda kaybolur.
-          </p>
+          <textarea id="text-input" name="text" rows="12" aria-describedby="input-hint"></textarea>
+          <p id="input-hint" class="hint">Sayfayı kapattığınızda metin silinir.</p>
         </div>
 
         <div class="actions">
@@ -60,8 +56,11 @@
         </div>
 
         <div class="checkbox-row">
-          <input type="checkbox" id="join-lines" name="joinLines">
-          <label for="join-lines">Satır sonlarını birleştir (PDF'ten kopyalanan metinler için)</label>
+          <input type="checkbox" id="join-lines" name="joinLines" aria-describedby="join-lines-hint">
+          <div>
+            <label for="join-lines">Satır sonlarını birleştir</label>
+            <p id="join-lines-hint" class="hint">PDF'ten kopyalanan metinler için</p>
+          </div>
         </div>
       </section>
 
@@ -369,8 +368,7 @@
           sözcükler işaretlenir; bunlar hata değil, öneridir.
         </p>
         <p>
-          <!-- Yer tutucu: {GITHUB_KULLANICI} sahibi tarafından doldurulacak (şartname 0.1). -->
-          <a id="method-link" href="https://github.com/{GITHUB_KULLANICI}/okunur/blob/main/docs/yontem.md">
+          <a id="method-link" href="https://github.com/avazargozalli/Okunur/blob/main/docs/yontem.md">
             Yöntemin tam açıklaması (docs/yontem.md)
           </a>
         </p>

@@ -4,6 +4,15 @@
   "description": "Türkçe metinler için okunabilirlik ölçer: Ateşman, Çetinkaya-Uzun, Bezirci-Yılmaz",
   "type": "module",
   "license": "MIT",
+  "author": "Azar Gozalli",
+  "homepage": "https://avazargozalli.github.io/Okunur/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/avazargozalli/Okunur.git"
+  },
+  "bugs": {
+    "url": "https://github.com/avazargozalli/Okunur/issues"
+  },
   "engines": {
     "node": ">=22"
   },
@@ -26,6 +35,10 @@
     "CHANGELOG.md"
   ],
   "sideEffects": false,
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
   "keywords": [
     "türkçe",
     "turkish",
@@ -50,6 +63,7 @@
     "web:dev": "vite web",
     "web:build": "vite build web",
     "check": "npm run lint && npm run typecheck && npm run coverage && npm run build && npm run web:build",
+    "prepack": "npm run build",
     "prepublishOnly": "npm run check"
   },
   "dependencies": {},

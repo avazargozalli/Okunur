@@ -537,11 +537,11 @@ Bilinen sınırlamaların tam listesi README ve [docs/kararlar.md](kararlar.md) 
 ```bibtex
 @misc{okunur-yontem-2026,
   title        = {okunur: Türkçe metinler için okunabilirlik ölçer — Yöntem},
-  author       = {{SAHIP_ADI}},
+  author       = {Azar Gozalli},
   year         = {2026},
   version      = {0.1.0},
   note         = {Algoritma sürümü 1},
-  howpublished = {\url{https://github.com/{GITHUB_KULLANICI}/okunur/blob/main/docs/yontem.md}}
+  howpublished = {\url{https://github.com/avazargozalli/Okunur/blob/main/docs/yontem.md}}
 }
 ```
 

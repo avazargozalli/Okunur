@@ -4,9 +4,9 @@
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![npm](https://img.shields.io/npm/v/okunur.svg)](https://www.npmjs.com/package/okunur)
-[![CI](https://github.com/{GITHUB_KULLANICI}/okunur/actions/workflows/ci.yml/badge.svg)](https://github.com/{GITHUB_KULLANICI}/okunur/actions/workflows/ci.yml)
+[![CI](https://github.com/avazargozalli/Okunur/actions/workflows/ci.yml/badge.svg)](https://github.com/avazargozalli/Okunur/actions/workflows/ci.yml)
 
-[Web app](https://{GITHUB_KULLANICI}.github.io/okunur/) · [Turkish README](README.md)
+[Web app](https://avazargozalli.github.io/Okunur/) · [Turkish README](README.md)
 
 `okunur` is deterministic: it uses no network, no model, and no external dictionary. It is designed for Turkish and does not support other languages.
 

@@ -9,12 +9,13 @@ abstract: >-
   web uygulaması olarak sunulur.
 type: software
 authors:
-  - name: "{SAHIP_ADI}"
+  - family-names: Gozalli
+    given-names: Azar
 version: "0.1.0"
 date-released: "2026-11-19"
 license: MIT
-repository-code: "https://github.com/{GITHUB_KULLANICI}/okunur"
-url: "https://{GITHUB_KULLANICI}.github.io/okunur/"
+repository-code: "https://github.com/avazargozalli/Okunur"
+url: "https://avazargozalli.github.io/Okunur/"
 keywords:
   - türkçe
   - turkish

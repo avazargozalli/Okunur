@@ -2,11 +2,11 @@
 
 Türkçe metinlerin okunabilirliğini ölçen açık kaynak araç: **Ateşman (1997)**, **Çetinkaya-Uzun (2010)** ve **Bezirci-Yılmaz (2010)** puanları, temel sayımlar ve cümle bazında sadeleştirme önerileri.
 
-[![CI](https://github.com/{GITHUB_KULLANICI}/okunur/actions/workflows/ci.yml/badge.svg)](https://github.com/{GITHUB_KULLANICI}/okunur/actions/workflows/ci.yml)
+[![CI](https://github.com/avazargozalli/Okunur/actions/workflows/ci.yml/badge.svg)](https://github.com/avazargozalli/Okunur/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/okunur.svg)](https://www.npmjs.com/package/okunur)
 [![Lisans: MIT](https://img.shields.io/badge/lisans-MIT-blue.svg)](LICENSE)
 
-[Web uygulaması](https://{GITHUB_KULLANICI}.github.io/okunur/) · [English](README.en.md) · [Yöntem](docs/yontem.md) · [Kararlar](docs/kararlar.md)
+[Web uygulaması](https://avazargozalli.github.io/Okunur/) · [English](README.en.md) · [Yöntem](docs/yontem.md) · [Kararlar](docs/kararlar.md)
 
 > Metniniz tarayıcınızdan çıkmaz.
 
@@ -16,11 +16,11 @@ Türkçe metinlerin okunabilirliğini ölçen açık kaynak araç: **Ateşman (1
 - **Sayımlar:** Cümle, kelime, hece, hece dağılımı, kelime başına hece ve cümle başına kelime ortalamaları.
 - **Tanılama:** Uzun cümleler, uzun kelimeler ve ağır/bürokratik sözcükler için sade karşılık önerileri.
 
-> **Ekran görüntüsü:** _(yer tutucu: `docs/ekran-goruntusu.png`)_
+![Okunur arayüzünde örnek bir Türkçe metnin okunabilirlik puanları ve sayımları](docs/ekran-goruntusu.png)
 
 ## Hemen dene
 
-Kurulum gerektirmeden tarayıcıda deneyin: <https://{GITHUB_KULLANICI}.github.io/okunur/>
+Kurulum gerektirmeden tarayıcıda deneyin: <https://avazargozalli.github.io/Okunur/>
 
 Komut satırında:
 
@@ -166,9 +166,9 @@ Bu maddelerin gerekçeleri ve kabul kararları: [docs/kararlar.md](docs/kararlar
 
 Katkı rehberi: [CONTRIBUTING.md](CONTRIBUTING.md). En kolay katkı yolları:
 
-- **Yanlış sonuç bildir:** [yanlış sonuç şablonu](https://github.com/{GITHUB_KULLANICI}/okunur/issues/new?template=yanlis-sonuc.yml) — metni, beklediğiniz cümle/kelime/hece sayısını ve aracın verdiği sonucu yazın.
-- **Sade karşılık öner:** [öneri şablonu](https://github.com/{GITHUB_KULLANICI}/okunur/issues/new?template=oneri.yml) — kısaltma, sade karşılık ya da özellik önerisi.
-- **Hata bildir:** [hata şablonu](https://github.com/{GITHUB_KULLANICI}/okunur/issues/new?template=hata.yml).
+- **Yanlış sonuç bildir:** [yanlış sonuç şablonu](https://github.com/avazargozalli/Okunur/issues/new?template=yanlis-sonuc.yml) — metni, beklediğiniz cümle/kelime/hece sayısını ve aracın verdiği sonucu yazın.
+- **Sade karşılık öner:** [öneri şablonu](https://github.com/avazargozalli/Okunur/issues/new?template=oneri.yml) — kısaltma, sade karşılık ya da özellik önerisi.
+- **Hata bildir:** [hata şablonu](https://github.com/avazargozalli/Okunur/issues/new?template=hata.yml).
 - Kod katkısı için önce `npm ci` ve `npm run check` çalıştırın; ayrıntılar CONTRIBUTING'de.
 
 ### Sırada ne var?
@@ -182,10 +182,10 @@ Akademik bir çalışmada kullanırsanız lütfen yazılımı ve yöntemi atıfl
 ```bibtex
 @software{okunur2026,
   title   = {okunur: Türkçe metinler için okunabilirlik ölçer},
-  author  = {{SAHIP_ADI}},
+  author  = {Azar Gozalli},
   year    = {2026},
   version = {0.1.0},
-  url     = {https://github.com/{GITHUB_KULLANICI}/okunur},
+  url     = {https://github.com/avazargozalli/Okunur},
   note    = {Algoritma sürümü 1}
 }
 ```
@@ -199,4 +199,4 @@ Kaynakça:
 
 ## Lisans
 
-MIT Lisansı, 2026, {SAHIP_ADI}. Ayrıntılar: [LICENSE](LICENSE).
+MIT Lisansı, 2026, Azar Gozalli ve okunur katkıcıları. [LICENSE](LICENSE)

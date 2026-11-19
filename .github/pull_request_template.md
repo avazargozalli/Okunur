@@ -31,7 +31,7 @@
 - [ ] Yeni çalışma zamanı bağımlılığı yok; geliştirme bağımlılıkları sınırlı listeden.
 - [ ] `dist/`, `dist-web/`, `coverage/` gibi üretilmiş dosyalar commit edilmedi.
 - [ ] Belgeler güncellendi (`README.md`, `docs/yontem.md`, `docs/kararlar.md` gerektiği kadar).
-- [ ] Değişiklik [CONTRIBUTING.md](https://github.com/{GITHUB_KULLANICI}/okunur/blob/main/CONTRIBUTING.md) ve [CODE_OF_CONDUCT.md](https://github.com/{GITHUB_KULLANICI}/okunur/blob/main/CODE_OF_CONDUCT.md) ile uyumlu.
+- [ ] Değişiklik [CONTRIBUTING.md](https://github.com/avazargozalli/Okunur/blob/main/CONTRIBUTING.md) ve [CODE_OF_CONDUCT.md](https://github.com/avazargozalli/Okunur/blob/main/CODE_OF_CONDUCT.md) ile uyumlu.
 
 ## Ek notlar
 

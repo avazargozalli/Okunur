@@ -27,5 +27,5 @@ Bu proje [Keep a Changelog](https://keepachangelog.com/tr/1.1.0/) biçimini ve [
 - Ek B'deki `numbers.json`, `syllables.json`, `sentences.json`, `texts.json` ve `formulas.json` vektörleri normatif kabul edildi.
 - Bezirci-Yılmaz düzey sınırları `≤ 8`, `≤ 12`, `≤ 16`, `> 16` olarak belirlendi; gerekçe `docs/kararlar.md` içinde.
 
-[Yayımlanmadı]: https://github.com/{GITHUB_KULLANICI}/okunur/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/{GITHUB_KULLANICI}/okunur/releases/tag/v0.1.0
+[Yayımlanmadı]: https://github.com/avazargozalli/Okunur/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/avazargozalli/Okunur/releases/tag/v0.1.0

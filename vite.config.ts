@@ -13,7 +13,7 @@ const DEVELOPMENT_CSP =
 
 export default defineConfig({
   root: "web",
-  base: "/okunur/",
+  base: "/Okunur/",
   build: {
     outDir: "../dist-web",
     emptyOutDir: true,

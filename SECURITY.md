@@ -11,9 +11,9 @@
 
 Güvenlik açıklarını **herkese açık issue olarak bildirmeyin**. Bunun yerine GitHub'ın özel güvenlik açığı bildirimi akışını kullanın:
 
-<https://github.com/{GITHUB_KULLANICI}/okunur/security/advisories/new>
+<https://github.com/avazargozalli/Okunur/security/advisories/new>
 
-Bu bağlantı çalışmıyorsa (özellik depo sahibi tarafından etkinleştirilmemişse) **{ILETISIM_EPOSTA}** adresine e-posta gönderin. E-postanın konusuna `okunur güvenlik` yazın.
+Bu bağlantı çalışmıyorsa e-posta konusuna `okunur güvenlik` yazarak açığı bildirin. [gozelliazer@gmail.com](mailto:gozelliazer@gmail.com)
 
 Bildiriminizde şunları paylaşın:
 
@@ -30,7 +30,7 @@ Lütfen bildiriminize gerçek kişilere ait metinler, kimlik bilgileri veya baş
 - **Web uygulaması:** Kullanıcı metninin sayfaya basılması, içerik güvenlik politikası, dış kaynak kullanımı ve tarayıcıda metin saklama.
 - **Tedarik zinciri:** Yayımlanan paket, bağımlılıklar ve GitHub Actions iş akışları.
 
-Okunabilirlik puanının beklenenden farklı çıkması, cümle/kelime bölütleme hatası veya sade karşılık önerisinin uygun olmaması **güvenlik açığı değildir**; bunlar için [yanlış sonuç şablonunu](https://github.com/{GITHUB_KULLANICI}/okunur/issues/new?template=yanlis-sonuc.yml) kullanın.
+Okunabilirlik puanının beklenenden farklı çıkması, cümle/kelime bölütleme hatası veya sade karşılık önerisinin uygun olmaması **güvenlik açığı değildir**; bunlar için [yanlış sonuç şablonunu](https://github.com/avazargozalli/Okunur/issues/new?template=yanlis-sonuc.yml) kullanın.
 
 ## Süreç
 

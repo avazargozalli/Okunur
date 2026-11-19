@@ -8,8 +8,8 @@
 - Depoyu çatallayıp klonlayın, sonra bağımlılıkları kilitten kurun:
 
 ```bash
-git clone https://github.com/{GITHUB_KULLANICI}/okunur.git
-cd okunur
+git clone https://github.com/avazargozalli/Okunur.git
+cd Okunur
 npm ci
 ```
 
@@ -88,7 +88,7 @@ Yeni bir kısaltma tabloya eklenirken cümle bitirme davranışı da seçilmelid
 
 ## Yanlış sonuç bildirme
 
-Okunabilirlik sonucu beklediğinizden farklıysa lütfen [yanlış sonuç şablonunu](https://github.com/{GITHUB_KULLANICI}/okunur/issues/new?template=yanlis-sonuc.yml) kullanın. Şunları ekleyin:
+Okunabilirlik sonucu beklediğinizden farklıysa lütfen [yanlış sonuç şablonunu](https://github.com/avazargozalli/Okunur/issues/new?template=yanlis-sonuc.yml) kullanın. Şunları ekleyin:
 
 - **Metin:** Sorunu gösteren en kısa metin (kişisel veri içermesin).
 - **Beklenen:** Hangi cümle/kelime/hece sayısı ya da puan bekleniyordu?
@@ -100,9 +100,46 @@ Metin, beklenen ve bulunan alanları olmadan sorunu yeniden üretmek çoğu zama
 
 ## Hata ve güvenlik bildirimleri
 
-- Genel hatalar için [hata şablonu](https://github.com/{GITHUB_KULLANICI}/okunur/issues/new?template=hata.yml).
-- Özellik ve sade karşılık önerileri için [öneri şablonu](https://github.com/{GITHUB_KULLANICI}/okunur/issues/new?template=oneri.yml).
+- Genel hatalar için [hata şablonu](https://github.com/avazargozalli/Okunur/issues/new?template=hata.yml).
+- Özellik ve sade karşılık önerileri için [öneri şablonu](https://github.com/avazargozalli/Okunur/issues/new?template=oneri.yml).
 - Güvenlik açıkları için **herkese açık issue açmayın**; [SECURITY.md](SECURITY.md) izleyin.
+
+## Yayın süreci
+
+### GitHub Pages
+
+Herkese açık `avazargozalli/Okunur` deposunun varsayılan dalı `main` olmalı. Depoda **Settings → Pages → Build and deployment → Source** alanında **GitHub Actions** seçin. **Actions → GitHub Pages → Run workflow** ile ilk derlemeyi başlatın. Sonraki `main` güncellemeleri siteyi otomatik derler. [GitHub Pages belgeleri](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)
+
+Güvenlik bildirim formunu **Settings → Advanced Security → Private vulnerability reporting** altında etkinleştirin. [GitHub güvenlik belgeleri](https://docs.github.com/en/code-security/how-tos/report-and-fix-vulnerabilities/configure-vulnerability-reporting/configure-for-a-repository)
+
+### İlk npm yayını
+
+Node 24 ile temiz `main` kopyasında testleri ve derlemeleri çalıştırın. İnceleyip yayımlayacağınız arşivi geçici bir dizine alın.
+
+```bash
+archive_dir="$(mktemp -d)"
+npm ci
+npm run check
+npm pack --pack-destination "$archive_dir"
+tar -tzf "$archive_dir/okunur-0.1.0.tgz"
+```
+
+İlk yayında npm hesabınızla oturum açın ve iki faktörlü doğrulamayı tamamlayın. Paket kaydı açıldığında, arşivi ürettiğiniz commit'i etiketleyin. [npm ilk yayın belgeleri](https://docs.npmjs.com/creating-and-publishing-unscoped-public-packages/)
+
+```bash
+npm login --registry=https://registry.npmjs.org
+npm publish "$archive_dir/okunur-0.1.0.tgz"
+git tag -a v0.1.0 -m "okunur 0.1.0"
+git push origin v0.1.0
+```
+
+`release.yml` etiketteki paket sürümünü ve CHANGELOG kaydını denetler. İlk yayında npm'deki arşivin bütünlük özetini doğrulayıp GitHub sürümünü oluşturur. Arşivi Actions ile aynı Node ve npm sürümleriyle hazırlayın.
+
+### Sonraki npm sürümleri
+
+Bir sonraki sürüm yayımlanmaya hazır olduğunda npm paket ayarlarında **Trusted publishing** altında GitHub Actions seçin. Sahip olarak `avazargozalli`, depo olarak `Okunur`, iş akışı olarak `release.yml` girin. **Allow npm publish** seçeneğini işaretleyin ve ortam alanını boş bırakın. npm, yeni bağlantıyı ilk başarılı otomatik yayınla doğrular ve bunun için iki gün süre verir. [npm Trusted Publishing belgeleri](https://docs.npmjs.com/trusted-publishers/)
+
+`package.json`, `package-lock.json`, `src/index.ts`, `CITATION.cff` ve CHANGELOG'daki sürüm bilgilerini birlikte güncelleyin. Sürüm commit'ini `v` ile başlayan etiketle GitHub'a gönderin. İş akışı paketi npm'e yayımlar ve GitHub sürümünü oluşturur. Yeniden çalıştırıldığında npm'deki aynı arşivi doğrulayıp tamamlanmamış GitHub adımına devam eder.
 
 ## Lisans
 

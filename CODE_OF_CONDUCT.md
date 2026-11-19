@@ -45,7 +45,7 @@ Topluluğumuzda aşağıdaki davranışları kısıtlamayı kabul ederiz. Bu dav
 
 Topluluk üyeleri arasında, ellerinden gelenin en iyisini yaparken bile gerilimler yaşanabilir. Her anlaşmazlık davranış kurallarının ihlali değildir; bu sözleşme, olumlu davranışları ve çatışmaları önlemeye yardımcı olabilecek normları pekiştirir.
 
-Bir olay meydana geldiğinde derhal bildirmek önemlidir. Olası bir ihlali bildirmek için **{ILETISIM_EPOSTA}** adresine e-posta gönderin. Bildiriminiz gizli tutulur.
+Bir olay meydana geldiğinde derhal bildirmek önemlidir. Olası bir ihlali bildirmek için proje e-postasını kullanın. Bildiriminiz gizli tutulur. [gozelliazer@gmail.com](mailto:gozelliazer@gmail.com)
 
 Topluluk moderatörleri ihlal bildirimlerini ciddiye alır ve makul bir süre içinde yanıt vermek için her türlü çabayı gösterir. Bildirimleri inceler; mesajları, günlükleri ve kayıtları gözden geçirir ya da tanıklarla ve diğer katılımcılarla görüşür. Moderatörler, güvenliği ve gizliliği önceliklendirirken soruşturma ve yaptırım eylemlerini olabildiğince şeffaf tutar. Bu değerlere saygı göstermek için yaptırım eylemleri ilgili taraflarla özel olarak yürütülür; ancak karşılıklı olarak üzerinde anlaşılan bir çözümün parçası olarak topluluğa duyuru yapılabilir.
 
