@@ -133,13 +133,13 @@ git tag -a v0.1.0 -m "okunur 0.1.0"
 git push origin v0.1.0
 ```
 
-`release.yml` etiketteki paket sürümünü ve CHANGELOG kaydını denetler. İlk yayında npm'deki arşivin bütünlük özetini doğrulayıp GitHub sürümünü oluşturur. Arşivi Actions ile aynı Node ve npm sürümleriyle hazırlayın.
+`release.yml` etiketteki paket sürümünü ve CHANGELOG kaydını denetler. npm'de kayıtlı bir sürüm varsa önce arşivlerin bütünlük özetlerini karşılaştırır. Özetler farklıysa npm arşivini indirir ve dosya adlarını, içeriklerini ve çalıştırma izinlerini doğrular. Okuma ve yazma izinleri arşiv karşılaştırmasını etkilemez.
 
 ### Sonraki npm sürümleri
 
 Bir sonraki sürüm yayımlanmaya hazır olduğunda npm paket ayarlarında **Trusted publishing** altında GitHub Actions seçin. Sahip olarak `avazargozalli`, depo olarak `Okunur`, iş akışı olarak `release.yml` girin. **Allow npm publish** seçeneğini işaretleyin ve ortam alanını boş bırakın. npm, yeni bağlantıyı ilk başarılı otomatik yayınla doğrular ve bunun için iki gün süre verir. [npm Trusted Publishing belgeleri](https://docs.npmjs.com/trusted-publishers/)
 
-`package.json`, `package-lock.json`, `src/index.ts`, `CITATION.cff` ve CHANGELOG'daki sürüm bilgilerini birlikte güncelleyin. Sürüm commit'ini `v` ile başlayan etiketle GitHub'a gönderin. İş akışı paketi npm'e yayımlar ve GitHub sürümünü oluşturur. Yeniden çalıştırıldığında npm'deki aynı arşivi doğrulayıp tamamlanmamış GitHub adımına devam eder.
+`package.json`, `package-lock.json`, `src/index.ts`, `CITATION.cff` ve CHANGELOG'daki sürüm bilgilerini birlikte güncelleyin. **Actions → Sürüm → Run workflow** üzerinden derleme ve arşiv denetimini elle çalıştırabilirsiniz. Sürüm commit'ini `v` ile başlayan etiketle GitHub'a gönderdiğinizde iş akışı paketi npm'e yayımlar ve GitHub sürümünü oluşturur. Yeniden çalıştırıldığında npm'deki paket içeriğini doğrulayıp tamamlanmamış GitHub adımına devam eder.
 
 ## Lisans
 

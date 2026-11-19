@@ -3,6 +3,7 @@ name: Sürüm
 on:
   push:
     tags: ["v*"]
+  workflow_dispatch:
 
 concurrency:
   group: release-${{ github.ref }}
@@ -33,7 +34,7 @@ jobs:
         run: |
           set -euo pipefail
           version="$(node --print 'require("./package.json").version')"
-          if [[ "$GITHUB_REF_NAME" != "v$version" ]]; then
+          if [[ "$GITHUB_EVENT_NAME" == "push" && "$GITHUB_REF_NAME" != "v$version" ]]; then
             echo "Etiket ($GITHUB_REF_NAME) ile paket sürümü (v$version) uyuşmuyor." >&2
             exit 1
           fi
@@ -53,37 +54,57 @@ jobs:
       - name: Tam denetim
         run: npm run check
 
-      - name: npm paketini yayımla veya var olan sürümü doğrula
+      - name: npm arşivini hazırla ve kayıt defterini denetle
+        id: package
         shell: bash
         run: |
           set -euo pipefail
           pack_info="$RUNNER_TEMP/npm-pack.json"
           npm pack --json --pack-destination "$RUNNER_TEMP" > "$pack_info"
           archive="$(node --print 'require(process.argv[1])[0].filename' "$pack_info")"
-          package_name="$(node --print 'encodeURIComponent(require("./package.json").name)')"
+          package_spec="$(node --print 'require(process.argv[1])[0].id' "$pack_info")"
+          registry_path="$(node --print 'const p = require(process.argv[1])[0]; encodeURIComponent(p.name) + "/" + p.version' "$pack_info")"
+          printf 'archive=%s\n' "$RUNNER_TEMP/$archive" >> "$GITHUB_OUTPUT"
           registry_info="$RUNNER_TEMP/npm-version.json"
-          status="$(curl --silent --show-error --retry 2 --max-time 15 --output "$registry_info" \
-            --write-out '%{http_code}' "https://registry.npmjs.org/$package_name/${GITHUB_REF_NAME#v}")"
-          case "$status" in
+          registry_http="$(curl --silent --show-error --retry 2 --max-time 15 --output "$registry_info" \
+            --write-out '%{http_code}' "https://registry.npmjs.org/$registry_path")"
+          case "$registry_http" in
             404)
-              npm publish "$RUNNER_TEMP/$archive"
+              echo "$package_spec yeni bir npm sürümü olarak yayımlanabilir."
+              echo "published=false" >> "$GITHUB_OUTPUT"
               ;;
             200)
               local_integrity="$(node --print 'require(process.argv[1])[0].integrity' "$pack_info")"
               published_integrity="$(node --print 'require(process.argv[1]).dist.integrity' "$registry_info")"
               if [[ "$published_integrity" != "$local_integrity" ]]; then
-                echo "npm'deki $GITHUB_REF_NAME paketi bu etiketin arşiviyle eşleşmiyor." >&2
-                exit 1
+                published_dir="$RUNNER_TEMP/published-npm"
+                mkdir -p "$published_dir"
+                npm pack "$package_spec" --ignore-scripts --json --pack-destination "$published_dir" \
+                  > "$published_dir/pack.json"
+                downloaded_integrity="$(node --print 'require(process.argv[1])[0].integrity' "$published_dir/pack.json")"
+                if [[ "$downloaded_integrity" != "$published_integrity" ]]; then
+                  echo "İndirilen npm arşivinin bütünlük özeti kayıt defteriyle uyuşmuyor." >&2
+                  exit 1
+                fi
+                python3 -I .github/scripts/compare_npm_archives.py "$RUNNER_TEMP/$archive" "$published_dir/$archive"
               fi
-              echo "$GITHUB_REF_NAME npm'de aynı arşivle yayımlanmış."
+              echo "$package_spec npm'de eşleşen içerikle yayımlanmış."
+              echo "published=true" >> "$GITHUB_OUTPUT"
               ;;
             *)
-              echo "npm kayıt defteri HTTP $status döndürdü." >&2
+              echo "npm kayıt defteri HTTP $registry_http döndürdü." >&2
               exit 1
               ;;
           esac
 
+      - name: npm paketini yayımla
+        if: github.event_name == 'push' && steps.package.outputs.published == 'false'
+        env:
+          NPM_ARCHIVE: ${{ steps.package.outputs.archive }}
+        run: npm publish "$NPM_ARCHIVE"
+
       - name: GitHub sürümü oluştur
+        if: github.event_name == 'push'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
